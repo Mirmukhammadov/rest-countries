@@ -239,7 +239,7 @@
 </style>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 
 let countriesData = ref(null); // Initialize countriesData as a ref
 let modeValues = ref(true);
@@ -270,11 +270,11 @@ const filterData = async () => {
 };
 
 const searchData = async () => {
-  if (searchInput.value.length === 0) {
-    fetchData();
-    return;
-  }
   try {
+    if (searchInput.value.length === 0) {
+      fetchData();
+      return;
+    }
     const response = await fetch(
       `https://restcountries.com/v3.1/name/${searchInput.value}`
     );
@@ -285,6 +285,8 @@ const searchData = async () => {
     console.error("An error occurred:", error);
   }
 };
+watch(selectedValue, filterData);
+watch(searchInput, searchData);
 
 onMounted(fetchData);
 function toggleMode() {
