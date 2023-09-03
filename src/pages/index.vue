@@ -270,6 +270,9 @@ const filterData = async () => {
 };
 
 const searchData = async () => {
+  if (searchInput.value == "") {
+    fetchData();
+  }
   try {
     const response = await fetch(
       `https://restcountries.com/v3.1/name/${searchInput.value}`
