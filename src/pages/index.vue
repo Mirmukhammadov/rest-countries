@@ -1,11 +1,11 @@
 <template>
   <div class="dark:bg-[#202c37]">
     <div
-      class="flex flex-row justify-between py-5 px-8 bg-white boxshadow dark:bg-[#2b3945]"
+      class="flex flex-row justify-between py-5 sm:px-8 px-4 bg-white boxshadow dark:bg-[#2b3945]"
     >
       <a
         href="/"
-        class="text-[#111517] font-serif text-xl font-bold cursor-pointer dark:text-white"
+        class="text-[#111517] font-serif sm:text-xl text-normal font-bold cursor-pointer dark:text-white"
       >
         Where in the world
       </a>
@@ -14,7 +14,11 @@
         v-if="!modeValues"
         @click="toggleMode"
       >
-        <img src="../images/moon.svg" alt="image" class="w-5 h-5 mr-3" />
+        <img
+          src="../images/moon.svg"
+          alt="image"
+          class="w-5 h-5 sm:mr-3 mr-1"
+        />
         Dark mode
       </button>
 
@@ -28,20 +32,22 @@
       </button>
     </div>
 
-    <div class="flex flex-row justify-between mt-10 py-5 px-8">
+    <div
+      class="flex flex-col sm:flex-row sm:justify-between justify-center mt-10 py-5 px-8"
+    >
       <input
         type="text"
         placeholder="Search for the country..."
         v-model="searchInput"
         @keyup="searchData"
-        class="search-input w-[400px] boxshadow py-4 px-5 rounded-md focus:invalid outline-none dark:bg-[#2b3945] dark:text-white dark:placeholder-white"
+        class="search-input max-w-[400px] boxshadow py-4 px-5 rounded-md focus:invalid outline-none mb-3 md:mb-0 dark:bg-[#2b3945] dark:text-white dark:placeholder-white"
       />
       <select
         name=""
         id=""
         v-model="selectedValue"
         @change="filterData"
-        class="boxshadow rounded-md p-2 pe-6 outline-none dark:bg-[#2B3945] dark:text-white"
+        class="boxshadow rounded-md p-2 pe-6 outline-none max-w-[400px] dark:bg-[#2B3945] dark:text-white"
       >
         <option value="Filter by region" selected>Filter by region</option>
         <!-- <option value="All">All</option> -->
@@ -54,12 +60,12 @@
     </div>
 
     <div
-      class="countries flex flex-row flex-wrap justify-between py-5 px-8"
+      class="countries flex flex-row flex-wrap sm:justify-between justify-center py-5 px-8"
       v-if="countriesData"
     >
       <div v-for="item in countriesData" :key="item">
         <div
-          class="boxshadow w-[300px] mb-8 cursor-pointer hover:scale-110 duration-300 dark:bg-[#2B3945] dark:rounded-t-lg"
+          class="boxshadow w-[300px] mb-8 cursor-pointer hover:scale-110 duration-300 sm:items-center dark:bg-[#2B3945] dark:rounded-t-lg"
         >
           <img
             :src="item.flags.png ? item.flags.png : item.flags.svg"
@@ -290,6 +296,7 @@ watch(searchInput, searchData);
 
 onMounted(fetchData);
 function toggleMode() {
+  console.log(modeValues.value);
   modeValues.value = !modeValues.value;
 
   if (modeValues.value) {
