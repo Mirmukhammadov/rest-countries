@@ -270,7 +270,7 @@ const filterData = async () => {
 };
 
 const searchData = async () => {
-  if (searchInput.value == "") {
+  if (searchInput.value.length === 0) {
     fetchData();
   }
   try {
