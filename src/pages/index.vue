@@ -272,6 +272,7 @@ const filterData = async () => {
 const searchData = async () => {
   if (searchInput.value.length === 0) {
     fetchData();
+    return;
   }
   try {
     const response = await fetch(
