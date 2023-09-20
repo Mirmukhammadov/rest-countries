@@ -11,7 +11,7 @@
       </a>
       <button
         class="text-[#111517] font-serif font-bold text-normal flex flex-row items-center"
-        v-if="!modeValues"
+        v-if="modeValues"
         @click="toggleMode"
       >
         <img
@@ -24,7 +24,7 @@
 
       <button
         class="text-[#111517] font-serif font-bold text-normal flex flex-row items-center dark:text-white"
-        v-if="modeValues"
+        v-if="!modeValues"
         @click="toggleMode"
       >
         <img src="../images/sun.svg" alt="image" class="w-5 h-5 mr-3" />
@@ -248,9 +248,10 @@
 import { ref, onMounted, watch } from "vue";
 
 let countriesData = ref(null); // Initialize countriesData as a ref
-let modeValues = ref(true);
+
 let selectedValue = ref("Filter by region");
 let searchInput = ref("");
+let modeValues = ref(true);
 
 const fetchData = async () => {
   try {
@@ -277,6 +278,7 @@ const filterData = async () => {
 
 const searchData = async () => {
   try {
+    searchInput.value = searchInput.value.replace(/[^a-zA-Z]/g, "");
     if (searchInput.value.length === 0) {
       fetchData();
       return;
@@ -296,10 +298,9 @@ watch(searchInput, searchData);
 
 onMounted(fetchData);
 function toggleMode() {
-  console.log(modeValues.value);
   modeValues.value = !modeValues.value;
 
-  if (modeValues.value) {
+  if (!modeValues.value) {
     document.body.classList.add("dark");
   } else {
     document.body.classList.remove("dark");
